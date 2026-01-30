@@ -1,0 +1,49 @@
+{% set name = "mochi-bedrock-module-api" %}
+{% set version = "0.2.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: cfcec755a27eaf2c6732d1cb031d04919f6de1f4d0fe4d09f6ed72c25c008146
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.8
+    - make
+    - pkg-config
+  host:
+    - mochi-thallium >=0.12.0
+    - nlohmann_json
+    - spdlog
+    - fmt
+  run:
+    - mochi-thallium >=0.12.0
+    - nlohmann_json
+    - spdlog
+    - fmt
+
+test:
+  commands:
+    - test -f $PREFIX/include/bedrock/AbstractComponent.hpp
+
+about:
+  home: https://github.com/mochi-hpc/mochi-bedrock-module-api
+  license: MIT
+  license_family: MIT
+  summary: Module API for Mochi's Bedrock component
+  description: |
+    Module API for Mochi's Bedrock component, providing interfaces
+    for building modular microservices in the Mochi ecosystem.
+
+extra:
+  recipe-maintainers:
+    - mdorier
