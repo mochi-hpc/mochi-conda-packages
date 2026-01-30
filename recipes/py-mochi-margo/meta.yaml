@@ -1,0 +1,48 @@
+{% set name = "py-mochi-margo" %}
+{% set version = "0.6.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: eac716469f8bab014b9bb7e28e3f242b29a039af27f9a8f26b869c06c6396079
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - pkg-config
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+    - pybind11 >=2.11.0
+    - pkgconfig
+    - mochi-margo >=0.6
+  run:
+    - python
+    - mochi-margo >=0.6
+
+test:
+  imports:
+    - mochi.margo
+
+about:
+  home: https://github.com/mochi-hpc/py-mochi-margo
+  license: MIT
+  license_family: MIT
+  summary: Python wrapper for the Mochi Margo library
+  description: |
+    Python wrapper for the Mochi Margo library, providing Python bindings
+    to use Margo's RPC capabilities from Python code.
+
+extra:
+  recipe-maintainers:
+    - mdorier
