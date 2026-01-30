@@ -1,0 +1,44 @@
+{% set name = "pmdk" %}
+{% set version = "1.12.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/pmem/pmdk/archive/{{ version }}.tar.gz
+  sha256: 53602e4c2439957046b428187665c5ff38cb90ca50956eb917b509a2e96909a3
+
+build:
+  number: 0
+  skip: true  # [win or osx]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - pkg-config
+  host:
+    - ncurses
+  run:
+    - ncurses
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libpmem.so
+    - test -f $PREFIX/include/libpmem.h
+
+about:
+  home: https://pmem.io/pmdk/
+  license: BSD-3-Clause
+  license_family: BSD
+  summary: Persistent Memory Development Kit
+  description: |
+    The Persistent Memory Development Kit (PMDK) is a collection of libraries
+    and tools for System Administrators and Application Developers to simplify
+    managing and accessing persistent memory devices.
+
+extra:
+  recipe-maintainers:
+    - mdorier

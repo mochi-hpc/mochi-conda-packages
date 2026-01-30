@@ -1,0 +1,70 @@
+{% set name = "mochi-warabi" %}
+{% set version = "0.7.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: c26295825cb5b2019109455c358b58940298329b42357e92b9d1d1b60e454aa1
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - pkg-config
+  host:
+    - mochi-margo >=0.15.0
+    - mochi-thallium >=0.12.0
+    - mochi-abt-io >=0.8.0
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - nlohmann_json
+    - nlohmann-json-schema-validator >=2.3.0
+    - spdlog
+    - fmt
+    - tclap
+    - libuuid
+    - pmdk
+    - py-mochi-margo >=0.6.0
+    - pybind11
+    - python
+  run:
+    - mochi-margo >=0.15.0
+    - mochi-thallium >=0.12.0
+    - mochi-abt-io >=0.8.0
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - nlohmann_json
+    - spdlog
+    - fmt
+    - libuuid
+    - pmdk
+    - py-mochi-margo >=0.6.0
+    - python
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libwarabi-client.so   # [linux]
+    - test -f $PREFIX/lib/libwarabi-client.dylib  # [osx]
+    - test -f $PREFIX/include/warabi/Client.hpp
+  imports:
+    - mochi.warabi
+
+about:
+  home: https://github.com/mochi-hpc/mochi-warabi
+  license: MIT
+  license_family: MIT
+  summary: Warabi - BLOB-storage microservice for Mochi
+  description: |
+    Warabi is a BLOB-storage microservice for Mochi, providing
+    efficient binary large object storage for distributed HPC applications.
+
+extra:
+  recipe-maintainers:
+    - mdorier

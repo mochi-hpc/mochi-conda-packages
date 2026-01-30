@@ -1,0 +1,4 @@
+# Mochi-warabi build variants
+bedrock:
+  - true
+  - false

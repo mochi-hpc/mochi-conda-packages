@@ -1,0 +1,43 @@
+{% set name = "nlohmann-json-schema-validator" %}
+{% set version = "2.3.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/pboettch/json-schema-validator/archive/{{ version }}.tar.gz
+  sha256: 2c00b50023c7d557cdaa71c0777f5bcff996c4efd7a539e58beaa4219fa2a5e1
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - cmake >=3.2
+    - make
+  host:
+    - nlohmann_json
+  run:
+    - nlohmann_json
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libnlohmann_json_schema_validator.so  # [linux]
+    - test -f $PREFIX/lib/libnlohmann_json_schema_validator.dylib  # [osx]
+    - test -f $PREFIX/include/nlohmann/json-schema.hpp
+
+about:
+  home: https://github.com/pboettch/json-schema-validator
+  license: MIT
+  license_family: MIT
+  summary: JSON schema validator for JSON for Modern C++
+  description: |
+    A C++ library for validating JSON documents against JSON Schema,
+    built on top of nlohmann/json.
+
+extra:
+  recipe-maintainers:
+    - mdorier
