@@ -1,0 +1,53 @@
+{% set name = "mochi-abt-io" %}
+{% set version = "0.8.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: efc576c881466df012c2bbda3fa3e674d79fc5a037bbd0aa684f6421552d555d
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - autoconf >=2.67
+    - automake
+    - libtool
+    - m4
+    - pkg-config
+    - make
+  host:
+    - argobots >=1.0
+    - json-c
+    - zlib
+    - liburing  # [linux and io_uring]
+  run:
+    - argobots >=1.0
+    - json-c
+    - liburing  # [linux and io_uring]
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libabt-io.so      # [linux]
+    - test -f $PREFIX/lib/libabt-io.dylib   # [osx]
+    - test -f $PREFIX/include/abt-io.h
+
+about:
+  home: https://github.com/mochi-hpc/mochi-abt-io
+  license: MIT
+  license_family: MIT
+  summary: Mochi ABT-IO - Argobots bindings to POSIX I/O functions
+  description: |
+    A Mochi library that provides Argobots bindings to POSIX I/O functions,
+    enabling non-blocking I/O operations within Argobots user-level threads.
+
+extra:
+  recipe-maintainers:
+    - mdorier
