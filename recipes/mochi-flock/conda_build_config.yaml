@@ -1,0 +1,8 @@
+# Mochi-flock build variants
+bedrock:
+  - true
+  - false
+
+use_mpi:
+  - true
+  - false

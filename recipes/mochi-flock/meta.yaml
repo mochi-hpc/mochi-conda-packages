@@ -1,0 +1,61 @@
+{% set name = "mochi-flock" %}
+{% set version = "0.6.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 1bd7bd54fd7a4b5f84006eadaab3f911c78afb50ec723385ad3a8f6edef2e8ac
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - pkg-config
+  host:
+    - mochi-margo
+    - mochi-thallium
+    - json-c
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - mpich                         # [use_mpi]
+    - py-mochi-margo >=0.6.1
+    - pybind11
+    - python
+  run:
+    - mochi-margo
+    - mochi-thallium
+    - json-c
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - mpich                         # [use_mpi]
+    - py-mochi-margo >=0.6.1
+    - python
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libflock-client.so   # [linux]
+    - test -f $PREFIX/lib/libflock-client.dylib  # [osx]
+    - test -f $PREFIX/include/flock/flock-client.h
+  imports:
+    - mochi.flock
+
+about:
+  home: https://github.com/mochi-hpc/mochi-flock
+  license: MIT
+  license_family: MIT
+  summary: Flock - group membership microservice for Mochi
+  description: |
+    Flock is a group membership microservice for Mochi, providing
+    mechanisms for managing groups of processes in distributed
+    HPC applications.
+
+extra:
+  recipe-maintainers:
+    - mdorier
