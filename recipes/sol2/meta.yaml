@@ -1,0 +1,42 @@
+{% set name = "sol2" %}
+{% set version = "3.5.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/ThePhD/sol2/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 86c0f6d2836b184a250fc2907091c076bf53c9603dd291eaebade36cc342e13c
+
+build:
+  number: 0
+  noarch: generic
+
+requirements:
+  build:
+    - cmake >=3.15
+    - make
+  host:
+    - lua ==5.4
+  run:
+    - lua ==5.4
+
+test:
+  commands:
+    - test -d $PREFIX/include/sol
+    - test -f $PREFIX/include/sol/sol.hpp
+    - test -f $PREFIX/share/cmake/sol2/sol2-config.cmake
+
+about:
+  home: https://github.com/ThePhD/sol2
+  license: MIT
+  license_family: MIT
+  summary: sol2 - a C++ library binding to Lua
+  description: |
+    sol2 is a C++ library binding to Lua. It supports all Lua versions 5.1+.
+    sol2 is header-only for easy integration into projects.
+
+extra:
+  recipe-maintainers:
+    - mdorier

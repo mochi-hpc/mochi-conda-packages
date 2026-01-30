@@ -1,0 +1,44 @@
+{% set name = "gdbm" %}
+{% set version = "1.25" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://ftpmirror.gnu.org/gdbm/gdbm-{{ version }}.tar.gz
+  sha256: d02db3c5926ed877f8817b81cd1f92f53ef74ca8c6db543fbba0271b34f393ec
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+  host:
+    - readline
+  run:
+    - readline
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libgdbm.so      # [linux]
+    - test -f $PREFIX/lib/libgdbm.dylib   # [osx]
+    - test -f $PREFIX/include/gdbm.h
+
+about:
+  home: https://www.gnu.org.ua/software/gdbm/gdbm.html
+  license: GPL-3.0-or-later
+  license_family: GPL
+  summary: GNU dbm - database functions using extensible hashing
+  description: |
+    GNU dbm (or GDBM, for short) is a library of database functions that use
+    extensible hashing and work similar to the standard UNIX dbm. These
+    routines are provided to a programmer needing to create and manipulate a
+    hashed database.
+
+extra:
+  recipe-maintainers:
+    - mdorier

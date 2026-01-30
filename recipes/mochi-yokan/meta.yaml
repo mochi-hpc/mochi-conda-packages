@@ -1,0 +1,83 @@
+{% set name = "mochi-yokan" %}
+{% set version = "0.9.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: b8cd41649e8ce8ed8acb24ef17499b4d3ecc55972a2a2d2724ebce1f4c5b60b9
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.15
+    - make
+    - pkg-config
+  host:
+    - mochi-margo >=0.15.0
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - nlohmann_json
+    - tclap
+    - libuuid
+    # Lua support
+    - lua           # [use_lua]
+    - sol2          # [use_lua]
+    # Python support
+    - py-mochi-margo >=0.6.0
+    - pybind11
+    - python
+    # Database backends
+    - libdb         # [backend == "berkeleydb" or backend == "all"]
+    - gdbm          # [backend == "gdbm" or backend == "all"]
+    - leveldb       # [backend == "leveldb" or backend == "all"]  # missing pkg-config on conda-forge
+    - lmdb          # [backend == "lmdb" or backend == "all"]
+    - rocksdb <=10.6.2      # [backend == "rocksdb" or backend == "all"] # greater versions need c++20
+    - tkrzw         # [backend == "tkrzw" or backend == "all"]
+    - unqlite-c       # [backend == "unqlite" or backend == "all"]
+  run:
+    - mochi-margo >=0.15.0
+    - mochi-bedrock-module-api >=0.2.0  # [bedrock]
+    - nlohmann_json
+    - libuuid
+    # Lua support
+    - lua           # [use_lua]
+    # Python support
+    - py-mochi-margo >=0.6.0
+    - python
+    # Database backends
+    - libdb         # [backend == "berkeleydb" or backend == "all"]
+    - gdbm          # [backend == "gdbm" or backend == "all"]
+    - leveldb       # [backend == "leveldb" or backend == "all"]  # missing pkg-config on conda-forge
+    - lmdb          # [backend == "lmdb" or backend == "all"]
+    - rocksdb <=10.6.2 # [backend == "rocksdb" or backend == "all"] # greater versions need c++20
+    - tkrzw         # [backend == "tkrzw" or backend == "all"]
+    - unqlite-c       # [backend == "unqlite" or backend == "all"]
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libyokan-client.so   # [linux]
+    - test -f $PREFIX/lib/libyokan-client.dylib  # [osx]
+    - test -f $PREFIX/include/yokan/client.h
+  imports:
+    - mochi.yokan
+
+about:
+  home: https://github.com/mochi-hpc/mochi-yokan
+  license: MIT
+  license_family: MIT
+  summary: Yokan - Margo-based key/value service for Mochi
+  description: |
+    A Mochi library that provides a Margo-based key/value service,
+    supporting multiple database backends including LMDB, LevelDB,
+    RocksDB, and others.
+
+extra:
+  recipe-maintainers:
+    - mdorier

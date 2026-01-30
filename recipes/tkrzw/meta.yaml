@@ -1,0 +1,44 @@
+{% set name = "tkrzw" %}
+{% set version = "0.9.44" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://dbmx.net/tkrzw/pkg/tkrzw-{{ version }}.tar.gz
+  sha256: 088ac619fbf7fc22c110674b3f8fe8d8573a1d7088e5616b268fd9f68ba25650
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+  host:
+    - zlib
+  run:
+    - zlib
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libtkrzw.so      # [linux]
+    - test -f $PREFIX/lib/libtkrzw.dylib   # [osx]
+    - test -f $PREFIX/include/tkrzw_dbm.h
+
+about:
+  home: https://dbmx.net/tkrzw/
+  license: Apache-2.0
+  license_family: Apache
+  summary: Tkrzw - C++ library implementing database managers
+  description: |
+    Tkrzw is a C++ library implementing database managers with various
+    algorithms including hash database, B+ tree database, and skip list
+    database.
+
+extra:
+  recipe-maintainers:
+    - mdorier
