@@ -1,0 +1,41 @@
+{% set name = "argobots" %}
+{% set version = "1.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/pmodels/argobots/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 1c056429d9c0a27c041d4734f6318b801fc2ec671854e42c35251c4c7d0d43e1
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - make
+  host:
+  run:
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libabt.so  # [linux]
+    - test -f $PREFIX/lib/libabt.dylib  # [osx]
+    - test -f $PREFIX/include/abt.h
+
+about:
+  home: https://www.argobots.org/
+  license: BSD-3-Clause
+  license_family: BSD
+  summary: Argobots - A lightweight threading/tasking framework
+  description: |
+    Argobots is a lightweight, low-level threading and tasking framework.
+    It provides a flexible and high-performance environment for
+    user-level threads and task scheduling.
+
+extra:
+  recipe-maintainers:
+    - mdorier

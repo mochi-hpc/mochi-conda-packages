@@ -1,0 +1,8 @@
+# Global build configuration for conda recipes
+# Add compiler versions, Python versions, and other variants here
+
+# Example configuration:
+# python:
+#   - 3.10
+#   - 3.11
+#   - 3.12

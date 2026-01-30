@@ -1,0 +1,50 @@
+{% set name = "mercury-hpc" %}
+{% set version = "2.4.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mercury-hpc/mercury/releases/download/v{{ version }}/mercury-{{ version }}.tar.bz2
+  sha256: 8a372416f3fca28d402ac7f7b73f0a7dd5d4b88785281ad9e6076e105e4840b9
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - pkg-config
+  host:
+    - libfabric       # [ofi]
+    - libfabric-devel # [ofi]
+    - libhwloc        # [hwloc]
+    - ucx             # [use_ucx]
+  run:
+    - libfabric # [ofi]
+    - libhwloc  # [hwloc]
+    - ucx       # [use_ucx]
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libmercury.so      # [linux]
+    - test -f $PREFIX/lib/libmercury.dylib   # [osx]
+    - test -f $PREFIX/include/mercury.h
+
+about:
+  home: https://mercury-hpc.github.io/
+  license: BSD-3-Clause
+  license_family: BSD
+  summary: Mercury - RPC framework for HPC
+  description: |
+    Mercury is a C library for implementing Remote Procedure Call (RPC),
+    optimized for High-Performance Computing Systems.
+
+extra:
+  recipe-maintainers:
+    - mdorier

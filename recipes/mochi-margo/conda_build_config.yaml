@@ -1,0 +1,4 @@
+# Mochi-margo build variants
+plumber:
+  - true
+  - false

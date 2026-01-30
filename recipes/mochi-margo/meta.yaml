@@ -1,0 +1,58 @@
+{% set name = "mochi-margo" %}
+{% set version = "0.22.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: 65d9170e517779beea7ce6f251271602bbee98cc434312336d0dcc8496ffed58
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.12
+    - make
+    - pkg-config
+  host:
+    - argobots >=1.2
+    - mercury-hpc >=2.0.0
+    - json-c
+    - libhwloc        # [plumber]
+    - libxml2-devel   # [plumber]
+    - libxml2         # [plumber]
+    - libfabric       # [plumber]
+    - libfabric-devel # [plumber]
+  run:
+    - argobots >=1.2
+    - mercury-hpc >=2.0.0
+    - json-c
+    - libhwloc  # [plumber]
+    - libxml2   # [plumber]
+    - libfabric # [plumber]
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libmargo.so      # [linux]
+    - test -f $PREFIX/lib/libmargo.dylib   # [osx]
+    - test -f $PREFIX/include/margo.h
+
+about:
+  home: https://github.com/mochi-hpc/mochi-margo
+  license: MIT
+  license_family: MIT
+  summary: Margo - Argobots bindings to Mercury RPC
+  description: |
+    A library that provides Argobots bindings to the Mercury RPC
+    implementation. Margo provides a simple programming model for
+    developing HPC services using Mercury and Argobots.
+
+extra:
+  recipe-maintainers:
+    - mdorier
