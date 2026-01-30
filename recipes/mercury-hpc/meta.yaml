@@ -26,9 +26,13 @@ requirements:
     - libhwloc        # [hwloc]
     - ucx             # [use_ucx]
   run:
-    - libfabric # [ofi]
+    # libfabric is intentionally omitted here - install it explicitly
+    # or load a system-provided module to have the libraries in LD_LIBRARY_PATH
     - libhwloc  # [hwloc]
     - ucx       # [use_ucx]
+  run_constrained:
+    # Ensure compatible libfabric version if installed
+    - libfabric >=1.9  # [ofi]
 
 test:
   commands:

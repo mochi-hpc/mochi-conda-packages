@@ -13,6 +13,5 @@ use_ucx:
 checksum:
   - true
   - false
-
 zip_keys:
   - [ofi, hwloc]
