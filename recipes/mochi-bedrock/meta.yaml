@@ -1,0 +1,77 @@
+{% set name = "mochi-bedrock" %}
+{% set version = "0.15.4" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 2d531b916cc0968c57ec0246481396276c87cdfe66b5fe85a2d2b67dfd83ac1b
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.8
+    - make
+    - pkg-config
+  host:
+    - mochi-margo >=0.15.0
+    - mochi-thallium >=0.14.3
+    - mochi-bedrock-module-api >=0.2.0
+    - nlohmann_json
+    - nlohmann-json-schema-validator >=2.3.0
+    - spdlog
+    - fmt
+    - tclap
+    - toml11 >=4.0.0
+    - mochi-flock >=0.3.0  # [flock]
+    - mpich                # [use_mpi]
+    - py-mochi-margo
+    - pybind11
+    - python
+    - attrs >=22.2.0
+    - rich
+    - typer
+  run:
+    - mochi-margo >=0.15.0
+    - mochi-thallium >=0.14.3
+    - mochi-bedrock-module-api >=0.2.0
+    - nlohmann_json
+    - spdlog
+    - fmt
+    - toml11 >=4.0.0
+    - mochi-flock >=0.3.0  # [flock]
+    - mpich                # [use_mpi]
+    - py-mochi-margo
+    - python
+    - attrs >=22.2.0
+    - rich
+    - typer
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libbedrock-server.so   # [linux]
+    - test -f $PREFIX/lib/libbedrock-server.dylib  # [osx]
+    - test -f $PREFIX/include/bedrock/Server.hpp
+    - bedrock-query --help
+  imports:
+    - mochi.bedrock
+
+about:
+  home: https://github.com/mochi-hpc/mochi-bedrock
+  license: MIT
+  license_family: MIT
+  summary: Mochi Bedrock - bootstrapping system for Mochi microservices
+  description: |
+    Bedrock is a bootstrapping system for Mochi microservices, providing
+    a framework for deploying and managing distributed HPC services.
+
+extra:
+  recipe-maintainers:
+    - mdorier
