@@ -1,0 +1,45 @@
+{% set name = "mochi-thallium" %}
+{% set version = "0.15.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: aca135efd5f870d7f1ba34a869239f9256efaa776b4706a45d2c28ca9ca27951
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+    - make
+    - pkg-config
+  host:
+    - mochi-margo >=0.6
+    - cereal >=1.3.1
+  run:
+    - mochi-margo >=0.6
+    - cereal >=1.3.1
+
+test:
+  commands:
+    - test -f $PREFIX/include/thallium.hpp
+
+about:
+  home: https://github.com/mochi-hpc/mochi-thallium
+  license: MIT
+  license_family: MIT
+  summary: Thallium - C++14 library wrapping Margo, Mercury, and Argobots
+  description: |
+    A Mochi C++14 library wrapping Margo, Mercury, and Argobots and
+    providing an object-oriented way to use these libraries.
+
+extra:
+  recipe-maintainers:
+    - mdorier
