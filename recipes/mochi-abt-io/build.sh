@@ -13,12 +13,13 @@ autoreconf -fi
 
 # Convert true/false to enable/disable for configure
 if [ "$io_uring" = "true" ]; then LIBURING="--enable-liburing"; else LIBURING="--disable-liburing"; fi
+if [ "$bedrock" = "true" ]; then BEDROCK="--enable-bedrock"; else BEDROCK="--disable-bedrock"; fi
 
 ./configure \
     --prefix=$PREFIX \
-    --disable-bedrock \
     --with-zlib=$PREFIX \
-    ${LIBURING}
+    ${LIBURING} \
+    ${BEDROCK}
 
 make -j${CPU_COUNT}
 make install
