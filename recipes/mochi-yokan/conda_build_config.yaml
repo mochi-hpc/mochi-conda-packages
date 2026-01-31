@@ -1,13 +1,10 @@
 # Mochi-yokan build variants
 bedrock:
   - true
-  - false
 
 use_lua:
   - true
-  - false
 
 # Backend options: none, all, berkeleydb, gdbm, leveldb, lmdb, rocksdb, tkrzw, unqlite
 backend:
   - none
-  - lmdb

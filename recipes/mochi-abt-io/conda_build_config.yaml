@@ -1,8 +1,6 @@
 # Mochi-abt-io build variants
 io_uring:
   - true
-  - false
 
 bedrock:
   - true
-  - false

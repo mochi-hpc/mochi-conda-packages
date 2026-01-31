@@ -1,17 +1,9 @@
 # Mercury build variants
 ofi:
   - true
-  - true
-  - false
 hwloc:
   - true
-  - false
-  - false
 use_ucx:
-  - true
   - false
 checksum:
-  - true
   - false
-zip_keys:
-  - [ofi, hwloc]
