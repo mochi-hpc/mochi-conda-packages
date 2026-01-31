@@ -25,7 +25,7 @@ requirements:
     - mochi-thallium
     - json-c
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
-    - mpich                         # [use_mpi]
+    - {{ mpi }}                      # [use_mpi]
     - py-mochi-margo >=0.6.1
     - pybind11
     - python
@@ -34,7 +34,7 @@ requirements:
     - mochi-thallium
     - json-c
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
-    - mpich                         # [use_mpi]
+    - mpi                            # [use_mpi]
     - py-mochi-margo >=0.6.1
     - python
 

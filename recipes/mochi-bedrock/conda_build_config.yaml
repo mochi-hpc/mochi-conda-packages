@@ -4,3 +4,6 @@ flock:
 
 use_mpi:
   - true
+
+mpi:
+  - mpich
