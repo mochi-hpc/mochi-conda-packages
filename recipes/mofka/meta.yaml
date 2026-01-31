@@ -1,0 +1,77 @@
+{% set name = "mofka" %}
+{% set version = "0.8.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 5e2e38a524cf7e088f74c7693d50b2241577ceb11381c786c6232547c93fc601
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.21
+    - make
+    - pkg-config
+  host:
+    - mochi-margo >=0.19.1
+    - mochi-thallium >=0.15.1
+    - mochi-bedrock >=0.15.0
+    - mochi-flock >=0.5.0
+    - mochi-warabi >=0.5.0
+    - mochi-yokan >=0.6.0
+    - diaspora-stream-api >=0.5.0
+    - nlohmann_json
+    - nlohmann-json-schema-validator
+    - spdlog
+    - fmt
+    - libuuid
+    # Python support
+    - py-mochi-margo
+    - pybind11
+    - python
+  run:
+    - mochi-margo >=0.19.1
+    - mochi-thallium >=0.15.1
+    - mochi-bedrock >=0.15.0
+    - mochi-flock >=0.5.0
+    - mochi-warabi >=0.5.0
+    - mochi-yokan >=0.6.0
+    - diaspora-stream-api >=0.5.0
+    - nlohmann_json
+    - nlohmann-json-schema-validator
+    - spdlog
+    - fmt
+    - libuuid
+    # Python support
+    - py-mochi-margo
+    - python
+    - rich
+    - typer
+
+test:
+  commands:
+    - test -f $PREFIX/lib/libmofka.so  # [linux]
+    - test -f $PREFIX/lib/libmofka.dylib  # [osx]
+    - test -f $PREFIX/include/mofka/MofkaDriver.hpp
+  imports:
+    - mochi.mofka
+
+about:
+  home: https://github.com/mochi-hpc/mofka
+  license: MIT
+  license_family: MIT
+  summary: Mofka - Mochi-based distributed event-streaming service for HPC
+  description: |
+    Mofka is a Mochi-based distributed event-streaming service for HPC.
+
+extra:
+  recipe-maintainers:
+    - mdorier

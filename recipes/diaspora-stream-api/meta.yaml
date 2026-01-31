@@ -1,0 +1,53 @@
+{% set name = "diaspora-stream-api" %}
+{% set version = "0.5.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/diaspora-project/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 34c3e1b10b5ff9ea030ffc92f0ef03013be5965a27b68b921d8fa83e827e28ac
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.21
+    - make
+    - pkg-config
+  host:
+    - nlohmann_json
+    - nlohmann-json-schema-validator
+    - spdlog
+    - tclap
+    # Python support
+    - pybind11
+    - python
+  run:
+    - nlohmann_json
+    - nlohmann-json-schema-validator
+    - spdlog
+    - python
+
+test:
+  commands:
+    - test -f $PREFIX/include/diaspora/DataDescriptor.hpp
+  imports:
+    - diaspora_stream.api
+
+about:
+  home: https://github.com/diaspora-project/diaspora-stream-api
+  license: MIT
+  license_family: MIT
+  summary: An API for distributed event-streaming service for HPC
+  description: |
+    An API for distributed event-streaming service for HPC.
+
+extra:
+  recipe-maintainers:
+    - mdorier

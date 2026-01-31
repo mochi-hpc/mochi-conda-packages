@@ -88,6 +88,9 @@ Libs: -L]\${libdir} -llmdb
 EOT
 fi
 
+# Remove sol2 dependency from config (not needed when Lua is disabled)
+sed -i '/find_dependency (sol2)/d' src/yokan-config.cmake.in
+
 mkdir build && cd build
 
 cmake ${CMAKE_ARGS} \
