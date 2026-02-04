@@ -30,11 +30,12 @@ requirements:
     - pybind11
     - python
   run:
+    # mpi is intentionally omitted here - install it explicitly
+    # or load a system-provided module to have the libraries/executables in LD_LIBRARY_PATH
     - mochi-margo
     - mochi-thallium
     - json-c
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
-    - mpi                            # [use_mpi]
     - py-mochi-margo >=0.6.1
     - python
 
