@@ -39,6 +39,7 @@ RECIPES=(
     "mochi-bedrock"
     "diaspora-stream-api"
     "mofka"
+    "diaspora-stream-octopus"
 )
 
 echo "Building recipes into channel: $CHANNEL_DIR"

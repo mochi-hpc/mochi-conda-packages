@@ -1,0 +1,48 @@
+{% set name = "diaspora-stream-octopus" %}
+{% set version = "0.1.2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/diaspora-project/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 3a10842f9b49795a6e8b1c0e789fc16b7ddf3da739b174fed49446f802505047
+
+build:
+  number: 0
+  skip: true  # [win]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.21
+    - make
+    - pkg-config
+  host:
+    - diaspora-stream-api >=0.5.1
+    - librdkafka
+    - util-linux
+    - aws-sdk-cpp
+  run:
+    - diaspora-stream-api >=0.5.1
+    - librdkafka
+    - util-linux
+    - aws-sdk-cpp
+
+test:
+  commands:
+    - test -f $PREFIX/include/octopus/Driver.hpp
+
+about:
+  home: https://github.com/diaspora-project/diaspora-stream-octopus
+  license: MIT
+  license_family: MIT
+  summary: Octopus implementation of the Diaspora Stream API.
+  description: |
+    Octopus implementation of the Diaspora Stream API.
+
+extra:
+  recipe-maintainers:
+    - mdorier
