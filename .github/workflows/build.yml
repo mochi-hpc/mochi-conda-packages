@@ -10,7 +10,14 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            suffix: linux-64
+          - runner: ubuntu-24.04-arm
+            suffix: aarch64
+    runs-on: ${{ matrix.runner }}
     defaults:
       run:
         shell: bash -el {0}
@@ -33,11 +40,26 @@ jobs:
         run: bash build-all.sh ${{ github.workspace }}/channel
 
       - name: Package channel
-        run: tar -czf mochi-conda-channel-${{ github.ref_name }}.tar.gz -C channel .
+        run: tar -czf mochi-conda-channel-${{ github.ref_name }}-${{ matrix.suffix }}.tar.gz -C channel .
+
+      - name: Upload tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochi-conda-channel-${{ matrix.suffix }}
+          path: mochi-conda-channel-${{ github.ref_name }}-${{ matrix.suffix }}.tar.gz
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: mochi-conda-channel-${{ github.ref_name }}
-          files: mochi-conda-channel-${{ github.ref_name }}.tar.gz
+          files: mochi-conda-channel-${{ github.ref_name }}-*.tar.gz
