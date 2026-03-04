@@ -1,0 +1,43 @@
+name: Build Conda Packages
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          activate-environment: build
+          python-version: "3.12"
+
+      - name: Install conda-build
+        run: conda install -y conda-build conda-index
+
+      - name: Build all packages
+        run: bash build-all.sh ${{ github.workspace }}/channel
+
+      - name: Package channel
+        run: tar -czf mochi-conda-channel-${{ github.ref_name }}.tar.gz -C channel .
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: mochi-conda-channel-${{ github.ref_name }}
+          files: mochi-conda-channel-${{ github.ref_name }}.tar.gz
