@@ -26,12 +26,14 @@ requirements:
     - util-linux
     - aws-sdk-cpp
     - curl
+    - zlib
   run:
     - diaspora-stream-api >=0.5.1
     - librdkafka
     - util-linux
     - aws-sdk-cpp
     - curl
+    - zlib
 
 test:
   commands:
