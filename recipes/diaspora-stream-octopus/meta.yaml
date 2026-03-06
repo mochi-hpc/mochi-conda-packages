@@ -1,5 +1,5 @@
 {% set name = "diaspora-stream-octopus" %}
-{% set version = "0.1.2" %}
+{% set version = "0.2.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/diaspora-project/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 3a10842f9b49795a6e8b1c0e789fc16b7ddf3da739b174fed49446f802505047
+  sha256: c37c629033eec2136530e7c06b92075ca9641cde5498eb1b8b87b420516d4b42
 
 build:
   number: 0
@@ -25,11 +25,13 @@ requirements:
     - librdkafka
     - util-linux
     - aws-sdk-cpp
+    - curl
   run:
     - diaspora-stream-api >=0.5.1
     - librdkafka
     - util-linux
     - aws-sdk-cpp
+    - curl
 
 test:
   commands:
