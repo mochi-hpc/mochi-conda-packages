@@ -12,12 +12,13 @@ jobs:
   build:
     strategy:
       matrix:
-        include:
+        arch:
           - runner: ubuntu-latest
             suffix: linux-64
           - runner: ubuntu-24.04-arm
             suffix: aarch64
-    runs-on: ${{ matrix.runner }}
+        python: ["3.12", "3.13"]
+    runs-on: ${{ matrix.arch.runner }}
     defaults:
       run:
         shell: bash -el {0}
@@ -31,7 +32,7 @@ jobs:
         with:
           auto-update-conda: true
           activate-environment: build
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
 
       - name: Install conda-build
         run: conda install -y conda-build conda-index
@@ -40,13 +41,13 @@ jobs:
         run: bash build-all.sh ${{ github.workspace }}/channel
 
       - name: Package channel
-        run: tar -czf mochi-conda-channel-${{ github.ref_name }}-${{ matrix.suffix }}.tar.gz -C channel .
+        run: tar -czf mochi-conda-channel-${{ github.ref_name }}-${{ matrix.arch.suffix }}-py${{ matrix.python }}.tar.gz -C channel .
 
       - name: Upload tarball
         uses: actions/upload-artifact@v4
         with:
-          name: mochi-conda-channel-${{ matrix.suffix }}
-          path: mochi-conda-channel-${{ github.ref_name }}-${{ matrix.suffix }}.tar.gz
+          name: mochi-conda-channel-${{ matrix.arch.suffix }}-py${{ matrix.python }}
+          path: mochi-conda-channel-${{ github.ref_name }}-${{ matrix.arch.suffix }}-py${{ matrix.python }}.tar.gz
 
   release:
     needs: build
