@@ -95,7 +95,7 @@ mkdir build && cd build
 
 cmake ${CMAKE_ARGS} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DENABLE_BEDROCK=${BEDROCK} \
     -DENABLE_LUA=${LUA} \
     -DENABLE_PYTHON=ON \

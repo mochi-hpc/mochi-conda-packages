@@ -11,7 +11,7 @@ mkdir build && cd build
 
 cmake ${CMAKE_ARGS} \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DBUILD_SHARED_LIBS=ON \
     -DENABLE_PLUMBER=${PLUMBER} \
     -DENABLE_TESTS=OFF \
