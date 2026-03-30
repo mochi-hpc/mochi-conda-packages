@@ -24,6 +24,7 @@ requirements:
     - nlohmann_json
     - nlohmann-json-schema-validator
     - spdlog
+    - yaml-cpp
     - tclap
     # Python support
     - pybind11
@@ -32,6 +33,7 @@ requirements:
     - nlohmann_json
     - nlohmann-json-schema-validator
     - spdlog
+    - yaml-cpp
     - python
 
 test:
