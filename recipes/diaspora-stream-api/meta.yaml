@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/diaspora-project/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 34c3e1b10b5ff9ea030ffc92f0ef03013be5965a27b68b921d8fa83e827e28ac
+  sha256: 3756c7c4c6a83038b8ca0ba59829e69b6065060b4727bde8286a3877e9925a9d
 
 build:
   number: 0
