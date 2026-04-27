@@ -1,5 +1,5 @@
 {% set name = "mofka" %}
-{% set version = "0.8.2" %}
+{% set version = "0.8.3" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 5e2e38a524cf7e088f74c7693d50b2241577ceb11381c786c6232547c93fc601
+  sha256: 627c216f5f308302a9f62c1a7d723a857bac207ac4a7b9a11ec9d1db80536871
 
 build:
   number: 0
