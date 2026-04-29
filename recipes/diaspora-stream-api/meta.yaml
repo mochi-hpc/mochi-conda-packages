@@ -1,5 +1,5 @@
 {% set name = "diaspora-stream-api" %}
-{% set version = "0.5.3" %}
+{% set version = "0.5.4" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/diaspora-project/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: fb68bbf7bf38b19b0c7a8465eca5802b3ce5f9ed4cb9561601e08694a648b842
+  sha256: 88d16bdd211ea80fe4257abb048945d2b3ed669fc3484a49b15a99ad3632cc81
 
 build:
   number: 0
