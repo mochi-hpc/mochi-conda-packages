@@ -1,5 +1,5 @@
 {% set name = "mochi-margo" %}
-{% set version = "0.22.0" %}
+{% set version = "0.23.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/mochi-hpc/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 65d9170e517779beea7ce6f251271602bbee98cc434312336d0dcc8496ffed58
+  sha256: 6db0b11094836e4107e44ed23c94c4c9b4ede21d4d35e425a3d7e40e59437293
 
 build:
   number: 0
