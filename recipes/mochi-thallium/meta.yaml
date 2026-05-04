@@ -1,5 +1,5 @@
 {% set name = "mochi-thallium" %}
-{% set version = "0.16.1" %}
+{% set version = "0.17.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: c7753e14f6de19d6fc35abc507d39f4a4f885d76326e5c368a48a13bab452cb8
+  sha256: ed65ef967e9e6c2ac58852e6d59a7339b9b8d25bbb32b4e775cd84ddea466564
 
 build:
   number: 0
