@@ -1,5 +1,5 @@
 {% set name = "mochi-bedrock" %}
-{% set version = "0.16.0" %}
+{% set version = "0.16.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/mochi-hpc/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: f2285ef773fbb8ca4bfbb8799e8e400873d65723a8b097089ad0d95aa90648d9
+  sha256: dcf86ec8de5dce311b4ea1aa4d6a6d19c4f1241872e4a68a8dad25e722c5e0a4
 
 build:
   number: 0
