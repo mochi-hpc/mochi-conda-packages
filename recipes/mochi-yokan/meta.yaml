@@ -25,7 +25,6 @@ requirements:
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
     - nlohmann_json
     - tclap
-    - libuuid
     # Lua support
     - lua           # [use_lua]
     - sol2          # [use_lua]
@@ -45,7 +44,6 @@ requirements:
     - mochi-margo >=0.15.0
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
     - nlohmann_json
-    - libuuid
     # Lua support
     - lua           # [use_lua]
     # Python support

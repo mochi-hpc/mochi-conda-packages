@@ -30,7 +30,7 @@ requirements:
     - spdlog
     - fmt
     - tclap
-    - libuuid
+    - util-linux
     - pmdk
     - py-mochi-margo >=0.6.0
     - pybind11
@@ -43,7 +43,7 @@ requirements:
     - nlohmann_json
     - spdlog
     - fmt
-    - libuuid
+    - util-linux
     - pmdk
     - py-mochi-margo >=0.6.0
     - python
