@@ -68,11 +68,11 @@ Name: leveldb
 Description: LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from   string keys to string values.
 Version: 1.22
 Cflags: -I\${includedir}
-Libs: -L]\${libdir} -lleveldb
+Libs: -L\${libdir} -lleveldb
 EOT
 fi
 
-# Add missing leveldb.pc file
+# Add missing lmdb.pc file
 if [ $LMDB = "ON" ]; then
 cat <<EOT > $PREFIX/lib/pkgconfig/lmdb.pc
 prefix=${PREFIX}
@@ -84,7 +84,7 @@ Name: leveldb
 Description: Symas LMDB is an extraordinarily fast, memory-efficient database.
 Version: 0.9.31
 Cflags: -I\${includedir}
-Libs: -L]\${libdir} -llmdb
+Libs: -L\${libdir} -llmdb
 EOT
 fi
 
