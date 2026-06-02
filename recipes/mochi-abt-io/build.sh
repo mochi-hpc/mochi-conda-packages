@@ -14,6 +14,8 @@ mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX \
          -DENABLE_BEDROCK=$BEDROCK \
          -DENABLE_LIBURING=$LIBURING \
+         -DENABLE_BENCHMARK=OFF \
+         -DENABLE_EXAMPLES=OFF \
          ${CMAKE_ARGS}
 
 make -j${CPU_COUNT}
