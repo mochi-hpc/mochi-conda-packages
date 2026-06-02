@@ -17,16 +17,12 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - autoconf >=2.67
-    - automake
-    - libtool
-    - m4
     - pkg-config
     - make
+    - cmake >=3.12
   host:
     - argobots >=1.0
     - json-c
-    - zlib
     - liburing  # [linux and io_uring]
     - mochi-bedrock-module-api >=0.2.0  # [bedrock]
   run:
